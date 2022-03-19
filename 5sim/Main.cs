@@ -5,6 +5,7 @@ namespace Five.Sim
 {
     public static class user
     {
+        /* Get Profile */
         public static string Profile(string auth)
         {
             HttpRequest web = new HttpRequest();
@@ -15,8 +16,8 @@ namespace Five.Sim
             return rss.ToString();
         }
 
-
-        public static string History(string auth)
+        /* Get Payment History */
+        public static string Payment_History(string auth)
         {
             HttpRequest web = new HttpRequest();
             web.AddHeader("Authorization", $"Bearer {auth}");
@@ -28,9 +29,9 @@ namespace Five.Sim
 
     }
 
-    /* Verify system */
     public static class Verify
     {
+        /* SMS code */
         public static int SMS_Code(string auth, int id)
         {
             using (HttpRequest web = new HttpRequest())
@@ -54,9 +55,10 @@ namespace Five.Sim
     }
 
 
-    /* Buy a Activation */
+
     public static class Purchase
     {
+        /* Buy a Activation */
         public static string Activation(string auth, string country, string provider, string product)
         {
             HttpRequest web = new HttpRequest();
@@ -71,6 +73,7 @@ namespace Five.Sim
 
     public static class Order
     {
+        /* Finish order */
         public static string Finish(string auth, int id)
         {
             HttpRequest web = new HttpRequest();
@@ -81,6 +84,7 @@ namespace Five.Sim
             return rss.ToString();
         }
 
+        /* Cancel order */
         public static string Cancel(string auth, int id)
         {
             HttpRequest web = new HttpRequest();
@@ -91,6 +95,17 @@ namespace Five.Sim
             return rss.ToString();
         }
 
+
+        /* Ban order */
+        public static string Ban(string auth, int id)
+        {
+            HttpRequest web = new HttpRequest();
+            web.AddHeader("Authorization", $"Bearer {auth}");
+            web.AddHeader("Content-Type", "application/json");
+            string url = web.Get($"https://5sim.net/v1/user/ban/" + id).ToString();
+            JObject rss = JObject.Parse(url);
+            return rss.ToString();
+        }
 
     }
 
