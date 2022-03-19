@@ -1,7 +1,7 @@
 ﻿using Leaf.xNet;
 using Newtonsoft.Json.Linq;
 
-namespace _5sim
+namespace Five.Sim
 {
     public static class user
     {
@@ -16,7 +16,19 @@ namespace _5sim
         }
 
 
+        public static string History(string auth)
+        {
+            HttpRequest web = new HttpRequest();
+            web.AddHeader("Authorization", $"Bearer {auth}");
+            web.AddHeader("Content-Type", "application/json");
+            string url = web.Get($"https://5sim.net/v1/user/payments").ToString();
+            JObject rss = JObject.Parse(url);
+            return rss.ToString();
+        }
+
     }
+
+    /* Verify system */
     public static class Verify
     {
         public static int SMS_Code(string auth, int id)
@@ -43,12 +55,10 @@ namespace _5sim
 
 
     /* Buy a Activation */
-    public static class Main
+    public static class Purchase
     {
-        public static string Activation(string auth, string country, string provider , string product)
+        public static string Activation(string auth, string country, string provider, string product)
         {
-            int ID;
-            string phone;
             HttpRequest web = new HttpRequest();
             web.AddHeader("Authorization", $"Bearer {auth}");
             web.AddHeader("Content-Type", "application/json");
@@ -58,4 +68,31 @@ namespace _5sim
         }
 
     }
+
+    public static class Order
+    {
+        public static string Finish(string auth, int id)
+        {
+            HttpRequest web = new HttpRequest();
+            web.AddHeader("Authorization", $"Bearer {auth}");
+            web.AddHeader("Content-Type", "application/json");
+            string url = web.Get($"https://5sim.net/v1/user/finish/" + id).ToString();
+            JObject rss = JObject.Parse(url);
+            return rss.ToString();
+        }
+
+        public static string Cancel(string auth, int id)
+        {
+            HttpRequest web = new HttpRequest();
+            web.AddHeader("Authorization", $"Bearer {auth}");
+            web.AddHeader("Content-Type", "application/json");
+            string url = web.Get($"https://5sim.net/v1/user/cancel/" + id).ToString();
+            JObject rss = JObject.Parse(url);
+            return rss.ToString();
+        }
+
+
+    }
+
+
 }
