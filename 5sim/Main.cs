@@ -29,7 +29,7 @@ namespace Five.Sim
 
     }
 
-    public static class Verify
+    public static class Check
     {
         /* SMS code */
         /* int wait = how much minutes it should wait to recheck */
