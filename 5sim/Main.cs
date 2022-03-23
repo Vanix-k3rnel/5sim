@@ -32,7 +32,8 @@ namespace Five.Sim
     public static class Verify
     {
         /* SMS code */
-        public static int SMS_Code(string auth, int id)
+        /* int wait = how much minutes it should wait to recheck */
+        public static int SMS_Code(string auth, int id, int wait)
         {
             using (HttpRequest web = new HttpRequest())
             {
@@ -48,7 +49,7 @@ namespace Five.Sim
                         int Verify_code = (int)sms_JSON["sms"][0]["code"];
                         return Verify_code;
                     }
-                    Thread.Sleep(60000);
+                    Thread.Sleep(60 * 1000 * wait);
                 }
             }
         }
