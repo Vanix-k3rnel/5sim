@@ -29,6 +29,8 @@ namespace Five.Sim
 
     }
 
+
+     /* CURRENTLY BROKEN */
     public static class Check
     {
         /* SMS code */
